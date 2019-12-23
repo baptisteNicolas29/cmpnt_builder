@@ -12,11 +12,15 @@ class Rig_Initialiser:
 
 	def build_base_rig(self):
 
-		cmds.createNode('transform', n= '__grp')
-		cmds.createNode('transform', n= '__geo_grp', p= '__grp')
-		cmds.createNode('transform', n= '__result_grp', p= '__grp')
-		cmds.createNode('transform', n= '__ctrl_grp', p= '__grp')
+		cmds.createNode('transform', n= '__grp') if not cmds.objExists('__grp') else None
+		cmds.createNode('transform', n= '__geo_grp', p= '__grp') if not cmds.objExists('__geo_grp') else None
+		cmds.createNode('transform', n= '__result_grp', p= '__grp') if not cmds.objExists('__result_grp') else None
+		cmds.createNode('transform', n= '__ctrl_grp', p= '__grp') if not cmds.objExists('__ctrl_grp') else None
 
 		cmds.setAttr('__geo_grp.inheritsTransform', 0)
 		cmds.setAttr('__result_grp.inheritsTransform', 0)
 		cmds.setAttr('__ctrl_grp.inheritsTransform', 0)
+
+	def build_chose_cmpnt(self, cmpnt_list_name):
+
+		create_cmpnt.create_multiple_cmpnt(self.list_cmpnt[cmpnt_list_name])
