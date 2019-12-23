@@ -1,19 +1,19 @@
 from maya import cmds
 
-def set_outliner_color(self, node, outliner_color= [1, 1, 1]):
+def set_outliner_color(node, outliner_color= [1, 1, 1]):
 
     cmds.setAttr(node+ '.useOutlinerColor', 1)
     cmds.setAttr(node+ '.outlinerColorR', outliner_color[0])
     cmds.setAttr(node+ '.outlinerColorG', outliner_color[1])
     cmds.setAttr(node+ '.outlinerColorB', outliner_color[2])
 
-def create_multiple_cmpnt(self, cmpnt_list= cmds.ls(sl= 1)):
+def create_multiple_cmpnt(cmpnt_list= cmds.ls(sl= 1)):
 
     for node in cmpnt_list:
 
-        self.create_cmpnt(node)
+        create_cmpnt(node)
 
-def create_cmpnt(self, cmpnt_name):
+def create_cmpnt(cmpnt_name):
 
     parent_node= None
 
@@ -29,9 +29,9 @@ def create_cmpnt(self, cmpnt_name):
     cmds.createNode('transform', n= '{0}:_deform'.format(cmpnt_name), p= '{0}:_private'.format(cmpnt_name), ss= 1)
     cmds.createNode('transform', n= '{0}:_proxi'.format(cmpnt_name), p= '{0}:_private'.format(cmpnt_name), ss= 1)
 
-    self.set_outliner_color('{0}:_input'.format(cmpnt_name), [.5, .5, 1])
-    self.set_outliner_color('{0}:_output'.format(cmpnt_name), [.5, .5, 1])
-    self.set_outliner_color('{0}:_public'.format(cmpnt_name), [.5, 1, .5])
-    self.set_outliner_color('{0}:_private'.format(cmpnt_name), [1, .5, .5])
-    self.set_outliner_color('{0}:_deform'.format(cmpnt_name), [1, 1, .5])
-    self.set_outliner_color('{0}:_proxi'.format(cmpnt_name), [1, 1, .5])
+    set_outliner_color('{0}:_input'.format(cmpnt_name), [.5, .5, 1])
+    set_outliner_color('{0}:_output'.format(cmpnt_name), [.5, .5, 1])
+    set_outliner_color('{0}:_public'.format(cmpnt_name), [.5, 1, .5])
+    set_outliner_color('{0}:_private'.format(cmpnt_name), [1, .5, .5])
+    set_outliner_color('{0}:_deform'.format(cmpnt_name), [1, 1, .5])
+    set_outliner_color('{0}:_proxi'.format(cmpnt_name), [1, 1, .5])
