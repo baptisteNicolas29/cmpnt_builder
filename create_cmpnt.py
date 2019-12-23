@@ -25,7 +25,6 @@ class CreateCmpnt:
         if cmds.objExists(cmpnt_name):
 
             cmds.delete(cmpnt_name)
-            parent_node= cmds.listRelatives(cmpnt_name, p= 1)[0]
 
         cmds.createNode('transform', n= '{0}:_cmpnt'.format(cmpnt_name), p= '__ctrl_grp' if cmds.objExists('__ctrl_grp') else None, ss= 1)
         cmds.createNode('transform', n= '{0}:_input'.format(cmpnt_name), p= '{0}:_cmpnt'.format(cmpnt_name), ss= 1)
