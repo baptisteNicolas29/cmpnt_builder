@@ -101,8 +101,8 @@ def output_to_input(input, output):
 		if ':_output_:' in cmds.listConnections('{0}.{1}'.format(output, 'output_cmpnt'))[0]:
 			output_node= cmds.listConnections('{0}.{1}'.format(output, 'output_cmpnt'))[0]
 	else:
-		print None
-		#raise error: 'no valid output selected'
+		cmds.warning('no output available')
+		return
 
 	print output_node
 
