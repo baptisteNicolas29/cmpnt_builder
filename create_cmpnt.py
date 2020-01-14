@@ -35,3 +35,5 @@ def create_cmpnt(cmpnt_name):
     set_outliner_color('{0}:_private'.format(cmpnt_name), [1, .5, .5])
     set_outliner_color('{0}:_deform'.format(cmpnt_name), [1, 1, .5])
     set_outliner_color('{0}:_proxi'.format(cmpnt_name), [1, 1, .5])
+
+#ta fonction ici
