@@ -9,9 +9,15 @@ def set_outliner_color(node, outliner_color= [1, 1, 1]):
 
 def create_multiple_cmpnt(cmpnt_list= cmds.ls(sl= 1)):
 
-    for node in cmpnt_list:
+    if len(cmpnt_list)== 0:
 
-        create_cmpnt(node)
+        create_cmpnt(input())
+
+    else:
+
+        for node in cmpnt_list:
+
+            create_cmpnt(node)
 
 def create_cmpnt(cmpnt_name):
 
