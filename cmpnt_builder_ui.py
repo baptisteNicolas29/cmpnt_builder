@@ -19,16 +19,22 @@ class Cmpnt_builder(QtWidgets.QWidget):
         self.finalise_action= QtWidgets.QAction("Finalise Rig", self)
         self.exit_action= QtWidgets.QAction("Exit", self)
 
+        self.about_action= QtWidgets.QAction("About", self)
+        self.api_action= QtWidgets.QAction("Go to API", self)
+
         self.file_menu.addAction(self.init_action)
         self.file_menu.addAction(self.finalise_action)
         self.file_menu.addAction(self.exit_action)
 
+        self.help_menu.addAction(self.about_action)
+        self.help_menu.addAction(self.api_action)
 
         self.list_btn= [
         QtWidgets.QPushButton('Create\nCmpnt'),
+        QtWidgets.QPushButton('Output\nTo\nInput'),
         QtWidgets.QPushButton('Set\nInput'),
         QtWidgets.QPushButton('Set\nOutput'),
-        QtWidgets.QPushButton('Output\nTo\nInput'),
+        QtWidgets.QPushButton('Spawn\nControler'),
         QtWidgets.QPushButton('Create\nBuffer')
         ]
 
