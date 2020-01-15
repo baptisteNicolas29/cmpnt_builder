@@ -8,9 +8,21 @@ class Cmpnt_builder(QtWidgets.QWidget):
 
         self.addItem()
         self.addLayout()
-        self.addConnection(self)
+        self.addConnection()
 
     def addItem(self):
+        self.menu_bar= QtWidgets.QMenuBar()
+        self.file_menu= self.menu_bar.addMenu('File')
+        self.help_menu= self.menu_bar.addMenu('Help')
+
+        self.init_action= QtWidgets.QAction("Initialise Rig", self)
+        self.finalise_action= QtWidgets.QAction("Finalise Rig", self)
+        self.exit_action= QtWidgets.QAction("Exit", self)
+
+        self.file_menu.addAction(self.init_action)
+        self.file_menu.addAction(self.finalise_action)
+        self.file_menu.addAction(self.exit_action)
+
 
         self.list_btn= [
         QtWidgets.QPushButton('Create\nCmpnt'),
@@ -42,9 +54,11 @@ class Cmpnt_builder(QtWidgets.QWidget):
             btn.setMinimumWidth(75)
 
     def addLayout(self):
-
+        self.mainLayout= QtWidgets.QVBoxLayout()
         self.btnLayout= QtWidgets.QHBoxLayout()
 
+
+        self.btnLayout.setMenuBar(self.menu_bar)
         for btn in self.list_btn:
             self.btnLayout.addWidget(btn)
 
@@ -53,4 +67,4 @@ class Cmpnt_builder(QtWidgets.QWidget):
 
     def addConnection(self):
 
-        pass
+        self.exit_action.triggered.connect(self.close)
