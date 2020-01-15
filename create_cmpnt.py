@@ -51,8 +51,10 @@ def build_buffer(drived_selec = cmds.ls(sl=True)):
 
     for node in drived_selec:
 
-        buffer = cmds.group(em=True, n= node+ '_buffer', w=True) if not cmds.objExists( node+ '_buffer') else node+ '_buffer'         #create buffer on node if not already exist
+        parent_node= cmds.listRelatives(node, p= 1)[0]
 
+
+        buffer= cmds.createNode('transform', n= node+ '_buffer', p= parent_node, ss= 1) if not cmds.objExists( node+ '_buffer') else node+ '_buffer' #create buffer on node if not already exist
 
         if not cmds.attributeQuery('buffer_cmpnt', node= buffer, ex= True): cmds.addAttr(buffer, at= 'message', ln= 'buffer_cmpnt')   #create msg attr for buffer if not already exist
 
