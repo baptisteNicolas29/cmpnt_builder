@@ -51,7 +51,7 @@ def build_buffer(drived_selec = cmds.ls(sl=True)):
 
     for node in drived_selec:
 
-        parent_node= cmds.listRelatives(node, p= 1)[0]
+        parent_node= cmds.listRelatives(node, p= 1)[0] if cmds.listRelatives(node, p= 1) else None
 
 
         buffer= cmds.createNode('transform', n= node+ '_buffer', p= parent_node, ss= 1) if not cmds.objExists( node+ '_buffer') else node+ '_buffer' #create buffer on node if not already exist
