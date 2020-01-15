@@ -67,3 +67,32 @@ def build_buffer(drived_selec = cmds.ls(sl=True)):
         cmds.parent(node, buffer)                                                       #parent node to buffer
 
         cmds.connectAttr(buffer + '.buffer_cmpnt', node + '.buffer_cmpnt', f= True)     #connect both msg attr
+
+'''
+name: build_ctrl
+arg: ctrl_name string is the name ctrl how's gon a be created
+arg: sel string:array is the curent selection in maya
+return: 0 if ctrl name exist or _public transform not exist
+'''
+def build_ctrl(ctrl_name= '', sel= cmds.ls(sl= 1)):
+    cmpnt_namespace= ''
+    for ctrl in sel:
+
+        for elem_node in cmds.ls(ctrl, l= 1)[0].split('|'):
+
+            if elem_node.endswith(':_cmpnt'):
+
+                cmpnt_namespace= elem_node.split(':')[0]
+
+    parent_node= '{0}:_public'.format(cmpnt_namespace)
+
+    if not cmds.objExists('{0}_{1}'.format(cmpnt_namespace, ctrl_name)) and cmds.objExists(parent_node):
+
+        ctrl_node= cmds.createNode('transform', n= '{0}_{1}'.format(cmpnt_namespace, ctrl_name), p= parent_node)
+
+    else:
+
+        return False
+
+    cmds.setAttr('{0}.{1}'.format(ctrl_node, 'displayHandle'), 1)
+    return True
