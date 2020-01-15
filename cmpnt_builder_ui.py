@@ -1,3 +1,4 @@
+from maya import cmds
 from PySide2 import QtCore, QtGui, QtWidgets
 import connections_setup
 import create_cmpnt
@@ -94,8 +95,8 @@ class Cmpnt_builder(QtWidgets.QWidget):
 
         self.list_btn['build_cmpnt'].clicked.connect(create_cmpnt.create_multiple_cmpnt)
 
-        self.list_btn['output_to_input'].clicked.connect(connections_setup.output_to_input)
-        self.list_btn['set_input'].clicked.connect(connections_setup.ctrl_to_input)
-        self.list_btn['set_output'].clicked.connect(connections_setup.ctrl_to_output)
+        self.list_btn['output_to_input'].clicked.connect(lambda *arg: connections_setup.output_to_input(cmds.ls(sl= 1)[1:], cmds.ls(sl= 1)[0]))
+        self.list_btn['set_input'].clicked.connect(lambda *arg: connections_setup.ctrl_to_input(cmds.ls(sl= 1)))
+        self.list_btn['set_output'].clicked.connect(lambda *arg: connections_setup.ctrl_to_output(cmds.ls(sl= 1)))
 
         self.list_btn['build_buffer'].clicked.connect(create_cmpnt.build_buffer)
