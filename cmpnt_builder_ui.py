@@ -111,4 +111,4 @@ class Cmpnt_builder(QtWidgets.QDialog):
     def build_ctrl(self):
 
         value, is_ok = QtWidgets.QInputDialog.getText(self, "controler name", "enter controler name here")
-        #create_cmpnt.create_cmpnt(value) if is_ok == True else None
+        create_cmpnt.build_ctrl(value, cmds.ls(sl= 1)) if is_ok == True else None
