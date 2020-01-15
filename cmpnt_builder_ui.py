@@ -8,7 +8,7 @@ reload(rig_initialiser)
 reload(create_cmpnt)
 reload(connections_setup)
 
-class Cmpnt_builder(QtWidgets.QWidget):
+class Cmpnt_builder(QtWidgets.QDialog):
 
     def __init__(self, parent= None):
 
@@ -41,9 +41,9 @@ class Cmpnt_builder(QtWidgets.QWidget):
 
         self.list_btn= {
         'build_cmpnt': QtWidgets.QPushButton('Create\nCmpnt'),
-        'output_to_input': QtWidgets.QPushButton('Output\nTo\nInput'),
-        'set_input': QtWidgets.QPushButton('Set\nInput'),
-        'set_output': QtWidgets.QPushButton('Set\nOutput'),
+        'output_to_input': QtWidgets.QPushButton('Output\nTo input'),
+        'set_input': QtWidgets.QPushButton('Set as\nInput'),
+        'set_output': QtWidgets.QPushButton('Set as\nOutput'),
         'buid_ctrl': QtWidgets.QPushButton('Spawn\nControler'),
         'build_buffer': QtWidgets.QPushButton('Create\nBuffer')
         }
@@ -90,13 +90,25 @@ class Cmpnt_builder(QtWidgets.QWidget):
     def addConnection(self):
 
         self.exit_action.triggered.connect(self.close)
-        self.init_action.triggered.connect(self.rig_initialiser.build_base_rig)
-        self.finalise_action.triggered.connect(self.rig_initialiser.rig_finaliser)
+        self.init_action.triggered.connect(lambda *arg: self.rig_initialiser.build_base_rig())
+        self.finalise_action.triggered.connect(lambda *arg: self.rig_initialiser.rig_finaliser())
 
-        self.list_btn['build_cmpnt'].clicked.connect(create_cmpnt.create_multiple_cmpnt)
+        self.list_btn['build_cmpnt'].clicked.connect(self.build_cmpnt)
 
         self.list_btn['output_to_input'].clicked.connect(lambda *arg: connections_setup.output_to_input(cmds.ls(sl= 1)[1:], cmds.ls(sl= 1)[0]))
         self.list_btn['set_input'].clicked.connect(lambda *arg: connections_setup.ctrl_to_input(cmds.ls(sl= 1)))
         self.list_btn['set_output'].clicked.connect(lambda *arg: connections_setup.ctrl_to_output(cmds.ls(sl= 1)))
 
-        self.list_btn['build_buffer'].clicked.connect(create_cmpnt.build_buffer)
+        self.list_btn['buid_ctrl'].clicked.connect(self.build_ctrl)
+        self.list_btn['build_buffer'].clicked.connect(lambda *arg: create_cmpnt.build_buffer(cmds.ls(sl= 1)))
+
+    def build_cmpnt(self):
+
+        value, is_ok = QtWidgets.QInputDialog.getText(self, "component name", "enter componenent name here")
+        create_cmpnt.create_cmpnt(value) if is_ok == True else None
+
+
+    def build_ctrl(self):
+
+        value, is_ok = QtWidgets.QInputDialog.getText(self, "controler name", "enter controler name here")
+        #create_cmpnt.create_cmpnt(value) if is_ok == True else None
